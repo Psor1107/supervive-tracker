@@ -1,0 +1,14 @@
+[Unit]
+Description=Supervive Tracker Flask App
+After=network.target
+
+[Service]
+User=azureuser
+WorkingDirectory=/home/azureuser/supervive-tracker
+Environment="PATH=/home/azureuser/supervive-tracker/venv/bin"
+ExecStart=/home/azureuser/supervive-tracker/venv/bin/gunicorn app:app --bind 127.0.0.1:8000 --workers 3 --timeout 30   # IMPORTANTE: Porta 8000 pois Caddy vai fazer o proxy da 80/443
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
